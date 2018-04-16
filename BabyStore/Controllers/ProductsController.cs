@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using BabyStore.Models;
 using BabyStore.ViewModels;
+using PagedList;
+
 namespace BabyStore.Controllers
 {
     public class ProductsController : Controller
@@ -15,7 +17,7 @@ namespace BabyStore.Controllers
         private StoreContext db = new StoreContext();
 
         // GET: Products
-        public ActionResult Index(string category, string search)
+        public ActionResult Index(string category, string search, string sortBy,int? page)
         {
             ProductIndexViewModel viewModel = new ProductIndexViewModel();
 
@@ -23,6 +25,7 @@ namespace BabyStore.Controllers
             if(!String.IsNullOrEmpty(category))
             {
                 products = products.Where(p => p.Category.Name == category);
+                viewModel.Category = category;
             }
             if(!String.IsNullOrEmpty(search))
             {
@@ -40,14 +43,43 @@ namespace BabyStore.Controllers
                                           CategoryName = catGroup.Key,
                                           ProductCount = catGroup.Count()
                                       };
-           // var categories = products.OrderBy(p => p.Category.Name).Select(p =>p.Category.Name).Distinct();
 
             if (!String.IsNullOrEmpty(category))
             {
                 products = products.Where(p => p.Category.Name == category);
             }
 
-            viewModel.Products = products;
+
+            switch (sortBy)
+            {
+                case "price_lowest":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "price_highest":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                case "A-Z":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "Z-A":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Name);
+                    break;
+            }
+
+            const int PageItems = 5;
+            int currentPage = (page ?? 1);
+            viewModel.Products = products.ToPagedList(currentPage, PageItems);
+            viewModel.SortBy = sortBy;
+            viewModel.Sorts = new Dictionary<string, string>
+            {
+            {"Price low to high", "price_lowest" },
+            {"Price high to low", "price_highest" },
+            {"A-Z", "A-Z" },
+            {"Z-A", "Z-A" }
+            };
             return View(viewModel);
         }
 
