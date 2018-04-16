@@ -203,6 +203,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160855066_InitialDatabase.cs" />
+    <Compile Include="Migrations\201804160855066_InitialDatabase.Designer.cs">
+      <DependentUpon>201804160855066_InitialDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804161016055_CategoryNameValidation.cs" />
+    <Compile Include="Migrations\201804161016055_CategoryNameValidation.Designer.cs">
+      <DependentUpon>201804161016055_CategoryNameValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804161023017_ProductValidation.cs" />
+    <Compile Include="Migrations\201804161023017_ProductValidation.Designer.cs">
+      <DependentUpon>201804161023017_ProductValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -295,6 +308,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804160855066_InitialDatabase.resx">
+      <DependentUpon>201804160855066_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161016055_CategoryNameValidation.resx">
+      <DependentUpon>201804161016055_CategoryNameValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161023017_ProductValidation.resx">
+      <DependentUpon>201804161023017_ProductValidation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
