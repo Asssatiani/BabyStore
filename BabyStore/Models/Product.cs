@@ -35,5 +35,7 @@ namespace BabyStore.Models
 
 
         public virtual Category Category { get; set; }
+
+        public virtual ICollection<ProductImageMapping> ProductImageMappings { get; set; }
     }
 }
